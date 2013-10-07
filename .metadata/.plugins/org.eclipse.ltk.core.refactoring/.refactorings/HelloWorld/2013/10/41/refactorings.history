@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename package &apos;src.main.java.com.soundcloud.api&apos; to &apos;com.soundcloud.api&apos;&#x0D;&#x0A;- Original project: &apos;HelloWorld&apos;&#x0D;&#x0A;- Original element: &apos;HelloWorld/src/src.main.java.com.soundcloud.api&apos;&#x0D;&#x0A;- Renamed element: &apos;HelloWorld/src/com.soundcloud.api&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename package &apos;src.main.java.com.soundcloud.api&apos;" flags="589830" hierarchical="false" id="org.eclipse.jdt.ui.rename.package" input="/src&lt;src.main.java.com.soundcloud.api" name="com.soundcloud.api" qualified="false" references="true" stamp="1381138866234" textual="false" version="1.0"/>
+</session>

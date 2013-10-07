@@ -1,0 +1,81 @@
+package com.example.helloworld;
+
+import java.util.List;
+
+import android.app.Activity;
+import android.content.Context;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.widget.TextView;
+import android.widget.Toast;
+
+public class MainActivity extends Activity implements SensorEventListener {
+	// Variables ----------------------------------------------
+	private SensorManager	mSensorManager;
+	private Sensor			mAccel;
+	private TextView		mAccelNum;
+	
+	// Methods ------------------------------------------------
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        List<Sensor> deviceSensors = mSensorManager.getSensorList(Sensor.TYPE_ALL);
+        Log.i("ACACAC", String.format(">> Senors: %s", deviceSensors));
+        Log.i("ACACAC", "CAN YOU READ ME?????");
+        setUpSensors();
+        beginAccelPrint();
+    }
+    
+    private void beginAccelPrint() {
+    	mAccelNum = (TextView) findViewById(R.id.accel_num);
+    	mAccelNum.setText(mAccel.toString());
+    }
+    
+    private void setUpSensors() {
+    	mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+    	if (mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null) {
+    		mAccel = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+    	} else {
+    		Toast.makeText(getApplicationContext(), "NO ACCELLEROMETER :(", Toast.LENGTH_LONG);
+    	}
+    }
+    
+    @Override
+    protected void onResume() {
+    	super.onResume();
+    	mSensorManager.registerListener(this, mAccel, SensorManager.SENSOR_DELAY_NORMAL);
+    }
+    @Override
+    protected void onPause() {
+    	super.onPause();
+    	mSensorManager.unregisterListener(this);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    // Sensor Methods ---------------------------------------------------------
+	@Override
+	public void onAccuracyChanged(Sensor arg0, int arg1) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void onSensorChanged(SensorEvent arg0) {
+		// TODO Auto-generated method stub
+		mAccelNum.setText(arg0.values.toString());
+//		mAccelNum.setText(String.format("%f, %f, %f", arg0.values[0]));
+	}
+    
+}

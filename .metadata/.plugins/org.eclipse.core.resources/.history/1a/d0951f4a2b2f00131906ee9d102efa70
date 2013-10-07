@@ -1,0 +1,55 @@
+package com.example.helloworld;
+
+import java.util.List;
+
+import android.app.Activity;
+import android.content.Context;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.widget.TextView;
+import android.widget.Toast;
+
+public class MainActivity extends Activity {
+	// Variables ----------------------------------------------
+	private SensorManager mSensorManager;
+	private Sensor mAccel;
+	
+	// Methods ------------------------------------------------
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        List<Sensor> deviceSensors = mSensorManager.getSensorList(Sensor.TYPE_ALL);
+        Log.i("ACACAC", String.format(">> Senors: %s", deviceSensors));
+        Log.i("ACACAC", "CAN YOU READ ME?????");
+        setUpSensors();
+        beginAccelPrint();
+    }
+    
+    private void beginAccelPrint() {
+    	TextView accel_num = (TextView) findViewById(R.id.accel_num);
+    	accel_num.setText(mAccel.toString());
+    }
+    
+    private void setUpSensors() {
+    	mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+    	if (mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null) {
+    		mAccel = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+    	} else {
+    	  Toast.makeText(getApplicationContext(), "NO ACCELLEROMETER :(", Toast.LENGTH_LONG);
+    	}
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+    
+}
