@@ -1,7 +1,6 @@
 package com.example.helloworld;
 
 import java.util.List;
-import com.soundcloud.api.*;
 
 import android.app.Activity;
 import android.content.Context;
